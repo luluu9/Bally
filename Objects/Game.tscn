@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Objects/Ball/Ball.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Objects/Player/Player.tscn" type="PackedScene" id=2]
+
+[sub_resource type="SegmentShape2D" id=1]
+b = Vector2( 1024, 0 )
+
+[sub_resource type="SegmentShape2D" id=2]
+a = Vector2( 0, 600 )
+b = Vector2( 1024, 600 )
+
+[node name="Game" type="Node"]
+
+[node name="World" type="Node2D" parent="."]
+
+[node name="Ball" parent="World" instance=ExtResource( 1 )]
+position = Vector2( 516.408, 295.453 )
+
+[node name="Player" parent="World" instance=ExtResource( 2 )]
+position = Vector2( 23.5706, 261.51 )
+
+[node name="Player2" parent="World" instance=ExtResource( 2 )]
+position = Vector2( 992.461, 292.215 )
+
+[node name="Map" type="StaticBody2D" parent="World"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Map"]
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="World/Map"]
+shape = SubResource( 2 )
