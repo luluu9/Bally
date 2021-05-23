@@ -22,7 +22,6 @@ _global_script_class_icons={
 
 config/name="Bally"
 run/main_scene="res://Objects/Game.tscn"
-config/icon="res://icon.png"
 
 [gdnative]
 
