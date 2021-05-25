@@ -23,6 +23,10 @@ _global_script_class_icons={
 config/name="Bally"
 run/main_scene="res://Objects/Game.tscn"
 
+[autoload]
+
+Singleton="*res://Objects/Singleton.gd"
+
 [gdnative]
 
 singletons=[ "res://git_api.gdnlib" ]

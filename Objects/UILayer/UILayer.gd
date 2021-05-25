@@ -27,3 +27,7 @@ func _on_TitleScreen_connect():
 
 func _on_Networking_connected():
 	show_screen("LobbyScreen")
+
+
+func _on_LobbyScreen_start_game():
+	show_screen("GameScreen")

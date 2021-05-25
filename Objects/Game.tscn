@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Objects/Ball/Ball.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Objects/Player/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Objects/Networking/StateProcessing.gd" type="Script" id=2]
 [ext_resource path="res://Objects/UILayer/UILayer.gd" type="Script" id=3]
 [ext_resource path="res://Objects/UILayer/TitleScreen.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Objects/Networking/Networking.gd" type="Script" id=5]
@@ -17,24 +17,18 @@ b = Vector2( 1024, 600 )
 
 [node name="Game" type="Node"]
 
-[node name="World" type="Node2D" parent="."]
+[node name="old_world" type="Node2D" parent="."]
 visible = false
 
-[node name="Ball" parent="World" instance=ExtResource( 1 )]
+[node name="Ball" parent="old_world" instance=ExtResource( 1 )]
 position = Vector2( 516.408, 295.453 )
 
-[node name="Player" parent="World" instance=ExtResource( 2 )]
-position = Vector2( 23.5706, 261.51 )
+[node name="Map" type="StaticBody2D" parent="old_world"]
 
-[node name="Player2" parent="World" instance=ExtResource( 2 )]
-position = Vector2( 992.461, 292.215 )
-
-[node name="Map" type="StaticBody2D" parent="World"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Map"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="old_world/Map"]
 shape = SubResource( 1 )
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="World/Map"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="old_world/Map"]
 shape = SubResource( 2 )
 
 [node name="UILayer" type="CanvasLayer" parent="."]
@@ -43,6 +37,8 @@ script = ExtResource( 3 )
 [node name="Screens" type="Control" parent="UILayer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_top = -1.49829
+margin_bottom = -1.49829
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -56,13 +52,22 @@ visible = false
 [node name="LobbyScreen" parent="UILayer/Screens" instance=ExtResource( 6 )]
 visible = false
 
+[node name="GameScreen" type="Control" parent="UILayer/Screens"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+
 [node name="Networking" type="Node" parent="."]
 script = ExtResource( 5 )
+
+[node name="StateProcessing" type="Node" parent="Networking"]
+script = ExtResource( 2 )
 
 [connection signal="connect" from="UILayer/Screens/TitleScreen" to="UILayer" method="_on_TitleScreen_connect"]
 [connection signal="host" from="UILayer/Screens/TitleScreen" to="UILayer" method="_on_TitleScreen_host"]
 [connection signal="host" from="UILayer/Screens/TitleScreen" to="Networking" method="_on_TitleScreen_host"]
 [connection signal="connect" from="UILayer/Screens/ConnectScreen" to="Networking" method="_on_ConnectScreen_connect"]
+[connection signal="start_game" from="UILayer/Screens/LobbyScreen" to="UILayer" method="_on_LobbyScreen_start_game"]
 [connection signal="connected" from="Networking" to="UILayer" method="_on_Networking_connected"]
 [connection signal="connected" from="Networking" to="UILayer/Screens/LobbyScreen" method="start"]
 [connection signal="hosted" from="Networking" to="UILayer/Screens/LobbyScreen" method="start"]

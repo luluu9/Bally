@@ -12,7 +12,6 @@ func _ready():
 
 func _physics_process(delta):
 	var collision = move_and_collide(velocity * delta)
-	print(collision)
 	if collision:
 	    var reflect = collision.remainder.bounce(collision.normal)
 	    velocity = velocity.bounce(collision.normal)
