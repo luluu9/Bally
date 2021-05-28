@@ -7,10 +7,15 @@ onready var start_button = $HBoxContainer/VBoxContainer/StartButton
 
 
 func _ready():
+	# warning-ignore:return_value_discarded
 	get_tree().connect("network_peer_connected", self, "_player_connected")
+	# warning-ignore:return_value_discarded
 	get_tree().connect("network_peer_disconnected", self, "_player_disconnected")
+	# warning-ignore:return_value_discarded
 	get_tree().connect("connected_to_server", self, "_connected_ok")
+	# warning-ignore:return_value_discarded
 	get_tree().connect("connection_failed", self, "_connected_fail")
+	# warning-ignore:return_value_discarded
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
 
 
@@ -55,7 +60,5 @@ func _server_disconnected():
 
 
 func _on_StartButton_pressed():
-	Singleton.get_networking_node().prepare_game()
-	Singleton.get_networking_node().rpc('prepare_game')
 	emit_signal("start_game")
 
