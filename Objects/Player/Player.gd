@@ -1,4 +1,5 @@
 extends Node2D
+class_name Player
 
 var paddle = null
 var up = Vector2(0, -1)

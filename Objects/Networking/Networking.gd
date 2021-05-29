@@ -53,9 +53,9 @@ remote func player_ready(id):
 remote func prepare_game():
 	prepare_world()
 	initialize_players()
-	if len(players) != 0: # if host is alone
+	if not get_tree().is_network_server():
 		rpc_id(1, "player_ready", get_tree().get_network_unique_id())
-		get_tree().set_pause(true)
+	get_tree().set_pause(true)
 
 
 remote func start_game():
