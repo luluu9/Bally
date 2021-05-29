@@ -1,14 +1,17 @@
 extends KinematicBody2D
+class_name Ball
 
 var speed = 500
 var velocity = Vector2()
 
 puppet var remote_position = Vector2()
 
+
 func _ready():
 	randomize()
 	velocity = Vector2(rand_range(-1, 1), rand_range(-1, 1)).normalized()
 	velocity *= speed
+	position = Vector2(rand_range(960-400, 960+400), rand_range(540-200, 540+200))
 
 
 func _physics_process(delta):
