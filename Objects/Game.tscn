@@ -46,6 +46,6 @@ script = ExtResource( 2 )
 [connection signal="connect" from="UILayer/Screens/ConnectScreen" to="Networking" method="_on_ConnectScreen_connect"]
 [connection signal="start_game" from="UILayer/Screens/LobbyScreen" to="Networking" method="_on_LobbyScreen_start_game"]
 [connection signal="start_game" from="UILayer/Screens/LobbyScreen" to="UILayer" method="_on_LobbyScreen_start_game"]
-[connection signal="connected" from="Networking" to="UILayer/Screens/LobbyScreen" method="start"]
 [connection signal="connected" from="Networking" to="UILayer" method="_on_Networking_connected"]
+[connection signal="connected" from="Networking" to="UILayer/Screens/LobbyScreen" method="start"]
 [connection signal="hosted" from="Networking" to="UILayer/Screens/LobbyScreen" method="start"]

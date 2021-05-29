@@ -11,7 +11,8 @@ var players_ready = []
 
 
 var player_scene = load("res://Objects/Player/Player.tscn")
-# var world_scene = load("res://Objects/World/World.tscn")
+var ball_scene = load("res://Objects/Ball/Ball.tscn")
+onready var world = get_node("/root/Game/World")
 
 
 func _ready():
@@ -55,7 +56,8 @@ remote func prepare_game():
 	initialize_players()
 	if not get_tree().is_network_server():
 		rpc_id(1, "player_ready", get_tree().get_network_unique_id())
-	get_tree().set_pause(true)
+	if len(players) > 0:
+		get_tree().set_pause(true)
 
 
 remote func start_game():
@@ -63,7 +65,9 @@ remote func start_game():
 
 
 func prepare_world():
-	pass
+	var ball = ball_scene.instance()
+	ball.set_network_master(1)
+	world.add_child(ball)
 
 
 func initialize_players():
@@ -77,7 +81,7 @@ func add_player(peer_id):
 	var player = player_scene.instance()
 	player.set_name(str(peer_id))
 	player.set_network_master(peer_id) 
-	get_node("/root/Game/World").add_child(player)
+	world.add_child(player)
 
 
 func _on_TitleScreen_host():
