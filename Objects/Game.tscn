@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
+[ext_resource path="res://Fonts/Score.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Objects/Networking/Networking.gd" type="Script" id=2]
 [ext_resource path="res://Objects/UILayer/UILayer.gd" type="Script" id=3]
 [ext_resource path="res://Objects/UILayer/TitleScreen.tscn" type="PackedScene" id=4]
@@ -53,18 +54,19 @@ margin_left = 956.0
 margin_top = 23.0
 margin_right = 964.0
 margin_bottom = 37.0
+custom_fonts/font = ExtResource( 1 )
 text = "0"
 
 [node name="Networking" type="Node" parent="."]
 script = ExtResource( 2 )
 
 [connection signal="connect" from="UILayer/Screens/TitleScreen" to="UILayer" method="_on_TitleScreen_connect"]
-[connection signal="host" from="UILayer/Screens/TitleScreen" to="Networking" method="_on_TitleScreen_host"]
 [connection signal="host" from="UILayer/Screens/TitleScreen" to="UILayer" method="_on_TitleScreen_host"]
+[connection signal="host" from="UILayer/Screens/TitleScreen" to="Networking" method="_on_TitleScreen_host"]
 [connection signal="connect" from="UILayer/Screens/ConnectScreen" to="Networking" method="_on_ConnectScreen_connect"]
-[connection signal="start_game" from="UILayer/Screens/LobbyScreen" to="Networking" method="_on_LobbyScreen_start_game"]
 [connection signal="start_game" from="UILayer/Screens/LobbyScreen" to="UILayer" method="_on_LobbyScreen_start_game"]
-[connection signal="connected" from="Networking" to="UILayer/Screens/LobbyScreen" method="start"]
+[connection signal="start_game" from="UILayer/Screens/LobbyScreen" to="Networking" method="_on_LobbyScreen_start_game"]
 [connection signal="connected" from="Networking" to="UILayer" method="_on_Networking_connected"]
+[connection signal="connected" from="Networking" to="UILayer/Screens/LobbyScreen" method="start"]
 [connection signal="hosted" from="Networking" to="UILayer/Screens/LobbyScreen" method="start"]
 [connection signal="started" from="Networking" to="UILayer" method="_on_Networking_started"]

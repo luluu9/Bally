@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Objects/UILayer/ConnectScreen.gd" type="Script" id=1]
+[ext_resource path="res://Fonts/ConnectScreen.tres" type="DynamicFont" id=2]
 
 [node name="ConnectScreen" type="Control"]
 anchor_right = 1.0
@@ -26,28 +27,31 @@ __meta__ = {
 }
 
 [node name="IpEdit" type="LineEdit" parent="VBoxContainer"]
-margin_top = 42.0
+margin_top = 12.0
 margin_right = 200.0
-margin_bottom = 66.0
+margin_bottom = 56.0
+custom_fonts/font = ExtResource( 2 )
 text = "127.0.0.1"
 placeholder_text = "ip address"
 
 [node name="PortEdit" type="LineEdit" parent="VBoxContainer"]
-margin_top = 77.0
+margin_top = 67.0
 margin_right = 200.0
-margin_bottom = 101.0
+margin_bottom = 111.0
+custom_fonts/font = ExtResource( 2 )
 text = "6996"
 placeholder_text = "port"
 
 [node name="ConnectButton" type="Button" parent="VBoxContainer"]
-margin_top = 112.0
+margin_top = 122.0
 margin_right = 200.0
-margin_bottom = 132.0
+margin_bottom = 162.0
+custom_fonts/font = ExtResource( 2 )
 text = "Connect"
 
 [node name="ResponseLabel" type="Label" parent="VBoxContainer"]
-margin_top = 143.0
+margin_top = 173.0
 margin_right = 200.0
-margin_bottom = 157.0
+margin_bottom = 187.0
 
 [connection signal="pressed" from="VBoxContainer/ConnectButton" to="." method="_on_ConnectButton_pressed"]
