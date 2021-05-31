@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-var speed = 150
+var speed = 350
 
 
 func move(direction):

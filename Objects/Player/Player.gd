@@ -4,7 +4,7 @@ class_name Player
 var paddle = null
 var up = Vector2(0, -1)
 var down = Vector2(0, 1)
-remotesync var points = 0
+remotesync var points = 0 setget set_points
 
 puppet var remote_position = Vector2()
 
@@ -31,9 +31,14 @@ func _physics_process(_delta):
 
 
 func _on_Goal_body_entered(body):
-	print(body.name)
-	if body is Ball:
-		if get_tree().is_network_server():
-			rset("points", points+1)
+	if get_tree().is_network_server():
+		if body is Ball:
+			if body.goalscorer:
+				body.goalscorer.rset("points", body.goalscorer.points+1)
 			body._ready()
-		print(points)
+
+
+func set_points(new_points):
+	points = new_points
+	if get_tree().get_network_unique_id() == int(self.name):
+		Singleton.get_score_node().text = str(new_points)

@@ -17,7 +17,9 @@ script = ExtResource( 3 )
 [node name="Screens" type="Control" parent="UILayer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 2.51978
 margin_top = -1.49829
+margin_right = 2.51978
 margin_bottom = -1.49829
 __meta__ = {
 "_edit_use_anchors_": false
@@ -37,6 +39,22 @@ visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 
+[node name="HBoxContainer" type="HBoxContainer" parent="UILayer/Screens/GameScreen"]
+anchor_right = 1.0
+margin_right = 1880.0
+margin_bottom = 60.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Score" type="Label" parent="UILayer/Screens/GameScreen/HBoxContainer"]
+margin_left = 956.0
+margin_top = 23.0
+margin_right = 964.0
+margin_bottom = 37.0
+text = "0"
+
 [node name="Networking" type="Node" parent="."]
 script = ExtResource( 2 )
 
@@ -46,6 +64,7 @@ script = ExtResource( 2 )
 [connection signal="connect" from="UILayer/Screens/ConnectScreen" to="Networking" method="_on_ConnectScreen_connect"]
 [connection signal="start_game" from="UILayer/Screens/LobbyScreen" to="Networking" method="_on_LobbyScreen_start_game"]
 [connection signal="start_game" from="UILayer/Screens/LobbyScreen" to="UILayer" method="_on_LobbyScreen_start_game"]
-[connection signal="connected" from="Networking" to="UILayer" method="_on_Networking_connected"]
 [connection signal="connected" from="Networking" to="UILayer/Screens/LobbyScreen" method="start"]
+[connection signal="connected" from="Networking" to="UILayer" method="_on_Networking_connected"]
 [connection signal="hosted" from="Networking" to="UILayer/Screens/LobbyScreen" method="start"]
+[connection signal="started" from="Networking" to="UILayer" method="_on_Networking_started"]

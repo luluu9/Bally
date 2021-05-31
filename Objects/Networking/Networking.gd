@@ -2,6 +2,7 @@ extends Node
 
 signal connected
 signal hosted
+signal started
 
 var SERVER_PORT = 6996
 var MAX_PLAYERS = 1
@@ -61,7 +62,9 @@ remote func prepare_game():
 
 
 remote func start_game():
+	emit_signal("started")
 	get_tree().set_pause(false)
+	
 
 
 func prepare_world():
