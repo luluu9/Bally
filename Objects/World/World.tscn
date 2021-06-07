@@ -19,5 +19,3 @@ shape = SubResource( 1 )
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Borders"]
 shape = SubResource( 2 )
-
-[node name="Goals" type="StaticBody2D" parent="."]

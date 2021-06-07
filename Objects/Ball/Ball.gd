@@ -30,10 +30,7 @@ func _physics_process(delta):
 #			this gave me an error, I think it's bug:
 #			if collider_parent is Player:
 #				goalscorer = collider_parent
-			var reflect = collision.remainder.bounce(collision.normal)
 			velocity = velocity.bounce(collision.normal)
-			# warning-ignore:return_value_discarded
-			# move_and_collide(reflect)
 		rset_unreliable("remote_position", self.position)
 	else:
 		self.position = remote_position
