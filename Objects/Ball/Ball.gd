@@ -4,6 +4,8 @@ class_name Ball
 var speed = 500
 var velocity = Vector2()
 
+var start_position = Vector2(960, 540)
+
 puppet var remote_position = Vector2()
 
 var goalscorer = null
@@ -12,8 +14,10 @@ func _ready():
 	randomize()
 	velocity = Vector2(rand_range(-1, 1), rand_range(-1, 1)).normalized()
 	velocity *= speed
-	position = Vector2(rand_range(960-400, 960+400), rand_range(540-200, 540+200))
+	position = start_position
 	goalscorer = null
+#	if not get_tree().get_network_peer():
+#		offline = true
 
 
 func _physics_process(delta):
@@ -29,7 +33,7 @@ func _physics_process(delta):
 			var reflect = collision.remainder.bounce(collision.normal)
 			velocity = velocity.bounce(collision.normal)
 			# warning-ignore:return_value_discarded
-			move_and_collide(reflect)
+			# move_and_collide(reflect)
 		rset_unreliable("remote_position", self.position)
 	else:
 		self.position = remote_position
