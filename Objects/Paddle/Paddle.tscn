@@ -4,7 +4,7 @@
 [ext_resource path="res://Objects/Paddle/Paddle.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 24.3458, 98.6537 )
+extents = Vector2( 25, 100 )
 
 [node name="Paddle" type="KinematicBody2D"]
 script = ExtResource( 2 )

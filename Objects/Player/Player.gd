@@ -25,9 +25,6 @@ func _physics_process(_delta):
 		rset_unreliable("remote_position", paddle.position)
 	else:
 		paddle.position = remote_position
-	if get_tree().is_network_server():
-		if Input.is_action_pressed("restart"):
-			get_node("/root/Game/World/Ball")._ready()
 
 
 func _on_Goal_body_entered(body):

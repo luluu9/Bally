@@ -4,11 +4,9 @@
 [ext_resource path="res://Objects/Ball/Ball.gd" type="Script" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 52.2438
+radius = 52.0
 
 [node name="Ball" type="KinematicBody2D"]
-position = Vector2( 434, 208 )
-rotation = 1.5708
 scale = Vector2( 0.2, 0.2 )
 script = ExtResource( 2 )
 

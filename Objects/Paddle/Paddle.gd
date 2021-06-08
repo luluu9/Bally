@@ -1,6 +1,10 @@
 extends KinematicBody2D
 
 var speed = 350
+var length = 0
+
+func _ready():
+	length = $CollisionShape2D.shape.extents.y
 
 
 func move(direction):

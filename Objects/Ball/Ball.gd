@@ -5,10 +5,13 @@ var speed = 500
 var velocity = Vector2()
 
 var start_position = Vector2(960, 540)
+var radius = 0
+var max_bounce_angle = 60
 
 puppet var remote_position = Vector2()
 
 var goalscorer = null
+
 
 func _ready():
 	randomize()
@@ -16,6 +19,7 @@ func _ready():
 	velocity *= speed
 	position = start_position
 	goalscorer = null
+	radius = $CollisionShape2D.shape.radius*self.scale.x
 #	if not get_tree().get_network_peer():
 #		offline = true
 
@@ -27,10 +31,17 @@ func _physics_process(delta):
 			var collider_parent = collision.collider.get_parent()
 			if collider_parent.has_method("set_points"):
 				goalscorer = collider_parent
-#			this gave me an error, I think it's bug:
-#			if collider_parent is Player:
-#				goalscorer = collider_parent
-			velocity = velocity.bounce(collision.normal)
+				var paddle = collision.collider
+				var angle = max_bounce_angle / (paddle.length + radius) * (self.global_position.y - paddle.global_position.y) 
+				angle = clamp(angle, -max_bounce_angle, max_bounce_angle)
+				velocity = collision.normal.rotated(deg2rad(angle)) * speed
+			else:
+				velocity = velocity.bounce(collision.normal)
 		rset_unreliable("remote_position", self.position)
 	else:
 		self.position = remote_position
+
+func _input(_event):
+	if get_tree().is_network_server():
+		if Input.is_action_pressed("restart"):
+			self._ready()
