@@ -5,16 +5,11 @@ var rotations = [0, 180]
 
 var prepared = false
 
-func _ready():
-	pass
-	# print(Vector2(100, 0).rotated(deg2rad(90)))
-	# prepare(2)
 
 # players amount
 func prepare(players):
 	var center = get_viewport_rect().size / 2
 	var world_size = center.y * 2
-	# print(center)
 	rotations = []
 	positions = []
 	var base_vector = Vector2(-center.y * 2 / players, 0)
@@ -25,10 +20,9 @@ func prepare(players):
 			vectors.append(base_vector.rotated(deg2rad(rot)))
 	for vector in vectors:
 		positions.append(center+vector)
-	# print(positions)
 	prepared = true
-	
-	
+
+
 func add_child(node, unique_name=false):
 	if not prepared:
 		prepare(len(Singleton.get_networking().players) + 1)

@@ -41,6 +41,7 @@ func _physics_process(delta):
 	else:
 		self.position = remote_position
 
+
 func _input(_event):
 	if get_tree().is_network_server():
 		if Input.is_action_pressed("restart"):
