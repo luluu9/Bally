@@ -7,8 +7,10 @@ var velocity = Vector2()
 var start_position = Vector2(960, 540)
 var radius = 0
 var max_bounce_angle = 60
+onready var tween = $Tween
 
-puppet var remote_position = Vector2()
+puppet var remote_position = Vector2() setget remote_position_set
+puppet var remote_velocity = Vector2()
 
 var goalscorer = null
 
@@ -37,9 +39,18 @@ func _physics_process(delta):
 				velocity = collision.normal.rotated(deg2rad(angle)) * speed
 			else:
 				velocity = velocity.bounce(collision.normal)
-		rset_unreliable("remote_position", self.position)
+		rset_unreliable("remote_position", position)
+		rset_unreliable("remote_velocity", velocity)
 	else:
-		self.position = remote_position
+		if not tween.is_active():
+			move_and_collide(remote_velocity * delta)
+
+
+# https://www.youtube.com/watch?v=fE6GNBkeey8&t=581s
+func remote_position_set(new_position):
+	remote_position = new_position
+	tween.interpolate_property(self, "position", position, remote_position, 1/60)
+	tween.start()
 
 
 func _input(_event):
