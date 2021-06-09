@@ -5,7 +5,7 @@ signal hosted
 signal started
 
 var SERVER_PORT = 6996
-var MAX_PLAYERS = 1
+var MAX_PLAYERS = 8
 
 var players = []
 var players_ready = []
