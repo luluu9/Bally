@@ -12,6 +12,10 @@ puppet var remote_position = Vector2()
 func _ready():
 	paddle = get_node("Paddle")
 
+func set_rotation(new_rotation):
+	up = up.rotated(new_rotation)
+	down = down.rotated(new_rotation)
+	.set_rotation(new_rotation)
 
 func _physics_process(_delta):
 	if not paddle:
