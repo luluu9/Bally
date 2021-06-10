@@ -93,8 +93,8 @@ func add_player(peer_id):
 			match info_name:
 				"color":
 					player.modulate = info_value
-				"name": # not implemented now
-					player.name = info_value
+				"name":
+					player.nickname = info_value
 	world.add_child(player)
 
 

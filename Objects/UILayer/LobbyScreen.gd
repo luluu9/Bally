@@ -6,6 +6,7 @@ signal set_info (info)
 onready var logs = $HBoxContainer/ConnectionLog
 onready var start_button = $HBoxContainer/VBoxContainer/StartButton
 onready var color_picker = $HBoxContainer/VBoxContainer/ColorPicker
+onready var nickname_edit = $HBoxContainer/VBoxContainer/NicknameEdit
 onready var players_node = $HBoxContainer/LobbyPlayers
 
 onready var lobby_font = preload("res://Fonts/LobbyScreen.tres")
@@ -69,8 +70,11 @@ func _on_StartButton_pressed():
 
 
 func _on_SetButton_pressed():
+	var nickname = nickname_edit.text
+	var info = ["name", nickname]
+	emit_signal("set_info", info)
 	var color = color_picker.color
-	var info = ["color", color]
+	info = ["color", color]
 	emit_signal("set_info", info)
 
 
@@ -99,5 +103,5 @@ func update_lobby(players_info):
 			match info_name:
 				"color":
 					player_color.color = info_value
-				"name": # not implemented now
+				"name":
 					player_label.text = info_value 

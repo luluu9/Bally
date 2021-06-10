@@ -36,7 +36,7 @@ __meta__ = {
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
 margin_right = 308.0
-margin_bottom = 534.0
+margin_bottom = 599.0
 rect_min_size = Vector2( 200, 250 )
 custom_constants/separation = 10
 
@@ -47,24 +47,35 @@ custom_fonts/font = ExtResource( 2 )
 disabled = true
 text = "Start the game"
 
-[node name="ColorPicker" type="ColorPicker" parent="HBoxContainer/VBoxContainer"]
+[node name="NicknameEdit" type="LineEdit" parent="HBoxContainer/VBoxContainer"]
 margin_top = 61.0
 margin_right = 308.0
-margin_bottom = 473.0
+margin_bottom = 116.0
+custom_fonts/font = ExtResource( 2 )
+align = 1
+placeholder_text = "Nickname"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorPicker" type="ColorPicker" parent="HBoxContainer/VBoxContainer"]
+margin_top = 126.0
+margin_right = 308.0
+margin_bottom = 538.0
 edit_alpha = false
 presets_visible = false
 
 [node name="SetButton" type="Button" parent="HBoxContainer/VBoxContainer"]
-margin_top = 483.0
+margin_top = 548.0
 margin_right = 308.0
-margin_bottom = 534.0
+margin_bottom = 599.0
 custom_fonts/font = ExtResource( 2 )
 text = "Set"
 
 [node name="LobbyPlayers" type="GridContainer" parent="HBoxContainer"]
 margin_left = 348.0
 margin_right = 648.0
-margin_bottom = 534.0
+margin_bottom = 599.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_min_size = Vector2( 300, 500 )
@@ -73,7 +84,7 @@ columns = 2
 [node name="ConnectionLog" type="RichTextLabel" parent="HBoxContainer"]
 margin_left = 688.0
 margin_right = 1188.0
-margin_bottom = 534.0
+margin_bottom = 599.0
 rect_min_size = Vector2( 500, 250 )
 custom_fonts/normal_font = SubResource( 1 )
 scroll_following = true

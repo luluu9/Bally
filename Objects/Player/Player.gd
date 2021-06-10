@@ -4,8 +4,9 @@ class_name Player
 var paddle = null
 var up = Vector2(0, -1)
 var down = Vector2(0, 1)
-remotesync var points = 0 setget set_points
+var nickname = ""
 
+remotesync var points = 0 setget set_points
 puppet var remote_position = Vector2()
 
 
