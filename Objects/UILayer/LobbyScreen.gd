@@ -1,9 +1,11 @@
 extends Control
 
 signal start_game
+signal set_info (info)
 
 onready var logs = $HBoxContainer/ConnectionLog
 onready var start_button = $HBoxContainer/VBoxContainer/StartButton
+onready var color_picker = $HBoxContainer/VBoxContainer/ColorPicker
 
 
 func _ready():
@@ -62,3 +64,9 @@ func _server_disconnected():
 func _on_StartButton_pressed():
 	emit_signal("start_game")
 
+
+func _on_SetButton_pressed():
+	var color = color_picker.color
+	var info = ["color", color]
+	emit_signal("set_info", info)
+	

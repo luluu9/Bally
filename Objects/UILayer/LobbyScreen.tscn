@@ -25,31 +25,46 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -204.5
-margin_top = -20.0
-margin_right = 204.5
-margin_bottom = 20.0
+margin_left = -424.0
+margin_top = -261.0
+margin_right = 424.0
+margin_bottom = 261.0
 custom_constants/separation = 40
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
-margin_right = 200.0
-margin_bottom = 250.0
+margin_right = 308.0
+margin_bottom = 534.0
 rect_min_size = Vector2( 200, 250 )
+custom_constants/separation = 10
 
 [node name="StartButton" type="Button" parent="HBoxContainer/VBoxContainer"]
-margin_right = 200.0
+margin_right = 308.0
 margin_bottom = 51.0
 custom_fonts/font = ExtResource( 2 )
 disabled = true
 text = "Start the game"
 
+[node name="ColorPicker" type="ColorPicker" parent="HBoxContainer/VBoxContainer"]
+margin_top = 61.0
+margin_right = 308.0
+margin_bottom = 473.0
+edit_alpha = false
+presets_visible = false
+
+[node name="SetButton" type="Button" parent="HBoxContainer/VBoxContainer"]
+margin_top = 483.0
+margin_right = 308.0
+margin_bottom = 534.0
+custom_fonts/font = ExtResource( 2 )
+text = "Set"
+
 [node name="ConnectionLog" type="RichTextLabel" parent="HBoxContainer"]
-margin_left = 240.0
-margin_right = 740.0
-margin_bottom = 250.0
+margin_left = 348.0
+margin_right = 848.0
+margin_bottom = 534.0
 rect_min_size = Vector2( 500, 250 )
 custom_fonts/normal_font = SubResource( 1 )
 scroll_following = true
@@ -58,3 +73,4 @@ __meta__ = {
 }
 
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/StartButton" to="." method="_on_StartButton_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/SetButton" to="." method="_on_SetButton_pressed"]
