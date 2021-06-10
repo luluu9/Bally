@@ -31,6 +31,9 @@ func _ready():
 
 func _player_connected(id):
 	rpc_id(id, "register_player")
+	if get_tree().is_network_server():
+		for peer_id in players_info:
+			rpc_id(id, "set_info", players_info[peer_id])
 
 
 func _player_disconnected(id):
@@ -87,9 +90,8 @@ func add_player(peer_id):
 	player.set_name(str(peer_id))
 	player.set_network_master(peer_id) 
 	if peer_id in players_info:
-		for info in players_info[peer_id]:
-			var info_name = info[0]
-			var info_value = info[1]
+		for info_name in players_info[peer_id]:
+			var info_value = players_info[peer_id][info_name]
 			match info_name:
 				"color":
 					player.modulate = info_value
@@ -126,8 +128,12 @@ remote func set_info(info):
 	var id = get_tree().get_rpc_sender_id()
 	if id == 0: # it means that function is called as local 
 		id = get_tree().get_network_unique_id()
-	if id in players_info:
-		players_info[id].append(info)
+	if info is Dictionary: # then it's whole story about player from host
+		players_info[id] = info
 	else:
-		players_info[id] = [info]
+		var info_name = info[0]
+		var info_value = info[1]
+		if not id in players_info: 
+			players_info[id] = {}
+		players_info[id][info_name] = info_value
 	Singleton.get_lobby_screen().update_lobby(players_info)

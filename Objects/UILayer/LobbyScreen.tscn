@@ -81,6 +81,24 @@ grow_vertical = 2
 rect_min_size = Vector2( 300, 500 )
 columns = 2
 
+[node name="Nicknames" type="Label" parent="HBoxContainer/LobbyPlayers"]
+margin_right = 148.0
+margin_bottom = 45.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 2 )
+text = "Nicknames"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Colors" type="Label" parent="HBoxContainer/LobbyPlayers"]
+margin_left = 152.0
+margin_right = 300.0
+margin_bottom = 45.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 2 )
+text = "Colors"
+
 [node name="ConnectionLog" type="RichTextLabel" parent="HBoxContainer"]
 margin_left = 688.0
 margin_right = 1188.0

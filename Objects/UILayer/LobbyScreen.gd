@@ -84,9 +84,7 @@ func update_lobby(players_info):
 		peer_id = str(peer_id)
 		var player_label = players_node.get_node(peer_id) # throws error but works
 		var player_color = players_node.get_node(peer_id + "_color")
-		for info in players_info[int(peer_id)]:
-			var info_name = info[0]
-			var info_value = info[1]
+		for info_name in players_info[int(peer_id)]:
 			if not player_label: # player is new, create scenes
 				player_label = Label.new()
 				player_label.name = peer_id
@@ -100,6 +98,7 @@ func update_lobby(players_info):
 				players_node.add_child(player_label) 
 				players_node.add_child(player_color)
 			
+			var info_value = players_info[int(peer_id)][info_name]
 			match info_name:
 				"color":
 					player_color.color = info_value
