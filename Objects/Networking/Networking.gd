@@ -130,4 +130,4 @@ remote func set_info(info):
 		players_info[id].append(info)
 	else:
 		players_info[id] = [info]
-		
+	Singleton.get_lobby_screen().update_lobby(players_info)

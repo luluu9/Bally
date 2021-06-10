@@ -61,9 +61,18 @@ margin_bottom = 534.0
 custom_fonts/font = ExtResource( 2 )
 text = "Set"
 
-[node name="ConnectionLog" type="RichTextLabel" parent="HBoxContainer"]
+[node name="LobbyPlayers" type="GridContainer" parent="HBoxContainer"]
 margin_left = 348.0
-margin_right = 848.0
+margin_right = 648.0
+margin_bottom = 534.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 300, 500 )
+columns = 2
+
+[node name="ConnectionLog" type="RichTextLabel" parent="HBoxContainer"]
+margin_left = 688.0
+margin_right = 1188.0
 margin_bottom = 534.0
 rect_min_size = Vector2( 500, 250 )
 custom_fonts/normal_font = SubResource( 1 )

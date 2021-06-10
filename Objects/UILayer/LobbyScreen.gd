@@ -6,6 +6,9 @@ signal set_info (info)
 onready var logs = $HBoxContainer/ConnectionLog
 onready var start_button = $HBoxContainer/VBoxContainer/StartButton
 onready var color_picker = $HBoxContainer/VBoxContainer/ColorPicker
+onready var players_node = $HBoxContainer/LobbyPlayers
+
+onready var lobby_font = preload("res://Fonts/LobbyScreen.tres")
 
 
 func _ready():
@@ -69,4 +72,32 @@ func _on_SetButton_pressed():
 	var color = color_picker.color
 	var info = ["color", color]
 	emit_signal("set_info", info)
-	
+
+
+# currently doesn't delete disconnected players
+func update_lobby(players_info):
+	for peer_id in players_info:
+		peer_id = str(peer_id)
+		var player_label = players_node.get_node(peer_id) # throws error but works
+		var player_color = players_node.get_node(peer_id + "_color")
+		for info in players_info[int(peer_id)]:
+			var info_name = info[0]
+			var info_value = info[1]
+			if not player_label: # player is new, create scenes
+				player_label = Label.new()
+				player_label.name = peer_id
+				player_label.size_flags_horizontal = SIZE_EXPAND_FILL
+				player_label.add_font_override("font", lobby_font)
+				
+				player_color = ColorRect.new()
+				player_color.name = peer_id + "_color"
+				player_color.size_flags_horizontal = SIZE_EXPAND_FILL
+				
+				players_node.add_child(player_label) 
+				players_node.add_child(player_color)
+			
+			match info_name:
+				"color":
+					player_color.color = info_value
+				"name": # not implemented now
+					player_label.text = info_value 
