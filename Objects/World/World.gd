@@ -21,15 +21,21 @@ func prepare(players):
 	for vector in vectors:
 		positions.append(center+vector)
 	prepared = true
+	print(positions, rotations)
 
 
-func add_child(node, unique_name=false):
+func add_child(node, all_players=[], unique_name=false):
 	if not prepared:
-		prepare(len(Singleton.get_networking().players) + 1)
+		if all_players:
+			prepare(len(all_players))
+		else:
+			prepare(len(Singleton.get_networking().players) + 1)
 	if node is Player:
-		var all_players = Singleton.get_networking().players + [get_tree().get_network_unique_id()]
+		if not all_players:
+			all_players = Singleton.get_networking().players + [get_tree().get_network_unique_id()]
 		all_players.sort()
 		var id = all_players.find(int(node.name))
 		node.position = positions[id]
 		node.rotate(deg2rad(rotations[id]))
+		print(node.position, id)
 	.add_child(node, unique_name)
