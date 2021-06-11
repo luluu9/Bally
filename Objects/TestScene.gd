@@ -5,7 +5,7 @@ onready var world = $World
 
 onready var player_scene = load("res://Objects/Player/Player.tscn")
 
-const test_players = 6
+const test_players = 3
 
 
 func _ready():
