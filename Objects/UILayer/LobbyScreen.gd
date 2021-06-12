@@ -110,3 +110,9 @@ func update_lobby(players_info):
 					player_color.color = info_value
 				"name":
 					player_label.text = info_value 
+
+
+func remove_player(peer_id):
+	if peer_id in players_labels:
+		players_node.get_node(peer_id).queue_free()
+		players_node.get_node(peer_id + "_color").queue_free()

@@ -13,7 +13,6 @@ var players = []
 var players_info = {}
 var players_ready = []
 
-
 var player_scene = load("res://Objects/Player/Player.tscn")
 var ball_scene = load("res://Objects/Ball/Ball.tscn")
 onready var world = get_node("/root/Game/World")
@@ -36,7 +35,9 @@ func _player_connected(id):
 
 
 func _player_disconnected(id):
-	rpc_id(id, "unregister_player")
+	if id in players_ready: 
+		world.get_node(str(id)).queue_free()
+	Singleton.get_lobby_screen().remove_player(str(id))
 	if id in players:
 		players.erase(id)
 	if id in players_info:
