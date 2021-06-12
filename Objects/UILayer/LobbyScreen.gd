@@ -11,6 +11,8 @@ onready var players_node = $HBoxContainer/LobbyPlayers
 
 onready var lobby_font = preload("res://Fonts/LobbyScreen.tres")
 
+var players_labels = []
+
 
 func _ready():
 	# warning-ignore:return_value_discarded
@@ -82,10 +84,10 @@ func _on_SetButton_pressed():
 func update_lobby(players_info):
 	for peer_id in players_info:
 		peer_id = str(peer_id)
-		var player_label = players_node.get_node(peer_id) # throws error but works
-		var player_color = players_node.get_node(peer_id + "_color")
+		var player_label = null
+		var player_color = null
 		for info_name in players_info[int(peer_id)]:
-			if not player_label: # player is new, create scenes
+			if not peer_id in players_labels: # player is new, create scenes
 				player_label = Label.new()
 				player_label.name = peer_id
 				player_label.size_flags_horizontal = SIZE_EXPAND_FILL
@@ -97,7 +99,11 @@ func update_lobby(players_info):
 				
 				players_node.add_child(player_label) 
 				players_node.add_child(player_color)
+				
+				players_labels.append(peer_id)
 			
+			player_label = players_node.get_node(peer_id)
+			player_color = players_node.get_node(peer_id + "_color")
 			var info_value = players_info[int(peer_id)][info_name]
 			match info_name:
 				"color":
