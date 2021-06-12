@@ -45,4 +45,6 @@ func _on_Goal_body_entered(body):
 func set_points(new_points):
 	points = new_points
 	if get_tree().get_network_unique_id() == int(self.name):
-		Singleton.get_score_node().text = str(new_points)
+		var score_node = Singleton.get_score_node()
+		if score_node:
+			score_node.text = str(new_points)
