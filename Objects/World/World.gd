@@ -35,9 +35,9 @@ func add_child(node, all_players=[], unique_name=false):
 			prepare(len(Singleton.get_networking().players) + 1)
 	if node is Player:
 		if not all_players:
-			all_players = Singleton.get_networking().players + [get_tree().get_network_unique_id()]
+			all_players = Singleton.get_networking().players + [str(get_tree().get_network_unique_id())]
 		all_players.sort()
-		var id = all_players.find(int(node.name))
+		var id = all_players.find(node.name)
 		node.position = positions[id]
 		node.rotate(deg2rad(rotations[id]))
 	.add_child(node, unique_name)

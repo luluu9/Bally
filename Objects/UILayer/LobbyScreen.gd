@@ -83,10 +83,9 @@ func _on_SetButton_pressed():
 # currently doesn't delete disconnected players
 func update_lobby(players_info):
 	for peer_id in players_info:
-		peer_id = str(peer_id)
 		var player_label = null
 		var player_color = null
-		for info_name in players_info[int(peer_id)]:
+		for info_name in players_info[peer_id]:
 			if not peer_id in players_labels: # player is new, create scenes
 				player_label = Label.new()
 				player_label.name = peer_id
@@ -104,7 +103,7 @@ func update_lobby(players_info):
 			
 			player_label = players_node.get_node(peer_id)
 			player_color = players_node.get_node(peer_id + "_color")
-			var info_value = players_info[int(peer_id)][info_name]
+			var info_value = players_info[peer_id][info_name]
 			match info_name:
 				"color":
 					player_color.color = info_value

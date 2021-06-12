@@ -35,18 +35,19 @@ func _player_connected(id):
 
 
 func _player_disconnected(id):
+	id = str(id)
 	if id in players_ready: 
-		world.get_node(str(id)).queue_free()
-	Singleton.get_lobby_screen().remove_player(str(id))
+		world.get_node(id).queue_free()
+	Singleton.get_lobby_screen().remove_player(id)
 	if id in players:
 		players.erase(id)
 	if id in players_info:
-		players_info.erase(str(id))
+		players_info.erase(id)
 
 
 # called on connected player
 remote func register_player():
-	var id = get_tree().get_rpc_sender_id()
+	var id = str(get_tree().get_rpc_sender_id())
 	players.append(id)
 
 
@@ -61,7 +62,7 @@ remote func prepare_game():
 	prepare_world()
 	initialize_players()
 	if not get_tree().is_network_server():
-		rpc_id(1, "player_ready", get_tree().get_network_unique_id())
+		rpc_id(1, "player_ready", str(get_tree().get_network_unique_id()))
 	if len(players) > 0:
 		get_tree().set_pause(true)
 
@@ -78,7 +79,7 @@ func prepare_world():
 
 
 func initialize_players():
-	var my_peer_id = get_tree().get_network_unique_id()
+	var my_peer_id = str(get_tree().get_network_unique_id())
 	add_player(my_peer_id)
 	for player in players:
 		add_player(player)
@@ -86,8 +87,8 @@ func initialize_players():
 
 func add_player(peer_id):
 	var player = player_scene.instance()
-	player.set_name(str(peer_id))
-	player.set_network_master(peer_id) 
+	player.set_name(peer_id)
+	player.set_network_master(int(peer_id)) 
 	if peer_id in players_info:
 		for info_name in players_info[peer_id]:
 			var info_value = players_info[peer_id][info_name]
@@ -124,9 +125,9 @@ func _on_LobbyScreen_set_info(info):
 
 
 remote func set_info(info):
-	var id = get_tree().get_rpc_sender_id()
-	if id == 0: # it means that function is called as local 
-		id = get_tree().get_network_unique_id()
+	var id = str(get_tree().get_rpc_sender_id())
+	if int(id) == 0: # it means that function is called as local 
+		id = str(get_tree().get_network_unique_id())
 	if info is Dictionary: # then it's whole story about player from host
 		players_info = info
 	else:
