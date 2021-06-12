@@ -1,17 +1,15 @@
 extends Node2D
 class_name Player
 
-var paddle = null
 var up = Vector2(0, -1)
 var down = Vector2(0, 1)
 var nickname = ""
+onready var paddle = $Paddle
+onready var tween = $Tween
 
 remotesync var points = 0 setget set_points
-puppet var remote_position = Vector2()
-
-
-func _ready():
-	paddle = get_node("Paddle")
+puppet var remote_position = Vector2() setget remote_position_set
+puppet var remote_direction = Vector2()
 
 
 func rotate(new_rotation):
@@ -24,14 +22,18 @@ func _physics_process(_delta):
 	if not paddle:
 		return
 	if is_network_master():
+		var direction = Vector2(0, 0)
 		if Input.is_action_pressed("move_up"):
-			paddle.move(up)
+			direction = up
 		if Input.is_action_pressed("move_down"):
-			paddle.move(down)
+			direction = down
+		paddle.move(direction)
 		
+		rset_unreliable("remote_direction", direction)
 		rset_unreliable("remote_position", paddle.position)
 	else:
-		paddle.position = remote_position
+		if not tween.is_active():
+			paddle.move(remote_direction)
 
 
 func _on_Goal_body_entered(body):
@@ -48,3 +50,9 @@ func set_points(new_points):
 		var score_node = Singleton.get_score_node()
 		if score_node:
 			score_node.text = str(new_points)
+
+
+func remote_position_set(new_position):
+	remote_position = new_position
+	tween.interpolate_property(paddle, "position", position, remote_position, 1/10)
+	tween.start()

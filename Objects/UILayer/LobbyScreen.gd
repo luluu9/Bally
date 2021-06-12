@@ -80,7 +80,6 @@ func _on_SetButton_pressed():
 	emit_signal("set_info", info)
 
 
-# currently doesn't delete disconnected players
 func update_lobby(players_info):
 	for peer_id in players_info:
 		var player_label = null

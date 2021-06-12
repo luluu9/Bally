@@ -17,4 +17,6 @@ position = Vector2( -50, 0 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Goal"]
 shape = SubResource( 1 )
 
+[node name="Tween" type="Tween" parent="."]
+
 [connection signal="body_entered" from="Goal" to="." method="_on_Goal_body_entered"]
