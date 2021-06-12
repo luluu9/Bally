@@ -37,17 +37,16 @@ func _player_connected(id):
 
 func _player_disconnected(id):
 	rpc_id(id, "unregister_player")
+	if id in players:
+		players.erase(id)
+	if id in players_info:
+		players_info.erase(str(id))
 
 
+# called on connected player
 remote func register_player():
 	var id = get_tree().get_rpc_sender_id()
 	players.append(id)
-
-
-remote func unregister_player():
-	var id = get_tree().get_rpc_sender_id()
-	if id in players:
-		players.erase(id)
 
 
 remote func player_ready(id):
