@@ -67,4 +67,5 @@ script = ExtResource( 2 )
 [connection signal="connected" from="Networking" to="UILayer/Screens/LobbyScreen" method="start"]
 [connection signal="connected" from="Networking" to="UILayer" method="_on_Networking_connected"]
 [connection signal="hosted" from="Networking" to="UILayer/Screens/LobbyScreen" method="start"]
+[connection signal="lost_connection" from="Networking" to="UILayer" method="_on_Networking_lost_connection"]
 [connection signal="started" from="Networking" to="UILayer" method="_on_Networking_started"]

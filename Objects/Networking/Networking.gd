@@ -3,6 +3,7 @@ extends Node
 signal connected
 signal hosted
 signal started
+signal lost_connection
 
 var SERVER_PORT = 6996
 var MAX_PLAYERS = 8
@@ -25,7 +26,8 @@ func _ready():
 	get_tree().connect("network_peer_disconnected", self, "_player_disconnected")
 	# get_tree().connect("connected_to_server", self, "_connected_ok")
 	# get_tree().connect("connection_failed", self, "_connected_fail")
-	# get_tree().connect("server_disconnected", self, "_server_disconnected")
+	# warning-ignore:return_value_discarded
+	get_tree().connect("server_disconnected", self, "_server_disconnected")
 
 
 func _player_connected(id):
@@ -43,6 +45,18 @@ func _player_disconnected(id):
 		players.erase(id)
 	if id in players_info:
 		players_info.erase(id)
+
+
+func _server_disconnected():
+	get_tree().set_pause(true)
+	for node in world.get_children():
+		if node.name != "Borders":
+			node.queue_free()
+	players.clear()
+	players_info.clear()
+	players_ready.clear()
+	emit_signal("lost_connection")
+	get_tree().set_pause(false)
 
 
 # called on connected player

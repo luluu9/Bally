@@ -53,11 +53,14 @@ func _player_disconnected(id):
 
 
 func _connected_ok():
+	if not nickname_edit.text.empty():
+		yield(get_tree().create_timer(1.0), "timeout") # give time to initialize players_info from host
+		_on_SetButton_pressed() # if nick selected earlier it will be send
 	var message = "Connected"
 	log_message(message)
 
 
-func _connection_fail():
+func _connected_fail():
 	var message = "Connection failed"
 	log_message(message)
 
@@ -65,6 +68,8 @@ func _connection_fail():
 func _server_disconnected():
 	var message = "Server disconnected"
 	log_message(message)
+	for peer_id in players_labels.duplicate():
+		remove_player(peer_id)
 
 
 func _on_StartButton_pressed():
@@ -114,3 +119,4 @@ func remove_player(peer_id):
 	if peer_id in players_labels:
 		players_node.get_node(peer_id).queue_free()
 		players_node.get_node(peer_id + "_color").queue_free()
+	players_labels.erase(peer_id)

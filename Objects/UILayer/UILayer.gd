@@ -36,3 +36,7 @@ func _on_LobbyScreen_start_game():
 
 func _on_Networking_started():
 	show_screen("GameScreen")
+
+
+func _on_Networking_lost_connection():
+	show_screen("TitleScreen")
