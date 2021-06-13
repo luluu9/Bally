@@ -10,7 +10,6 @@ var goal_margin = 100 # should be set to approx. distance of goal collider from 
 # players amount
 func prepare(players):
 	var center = get_viewport_rect().size / 2
-	var world_size = center.y * 2
 	rotations = []
 	positions = []
 	var base_vector = Vector2(-center.y+goal_margin, 0)

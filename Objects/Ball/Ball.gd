@@ -43,6 +43,7 @@ func _physics_process(delta):
 		rset_unreliable("remote_velocity", velocity)
 	else:
 		if not tween.is_active():
+			# warning-ignore:return_value_discarded
 			move_and_collide(remote_velocity * delta)
 
 
