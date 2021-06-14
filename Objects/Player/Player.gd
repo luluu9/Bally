@@ -16,6 +16,10 @@ func rotate(new_rotation):
 	rotation = 0
 	up = Vector2(0, -1).rotated(new_rotation)
 	down = Vector2(0, 1).rotated(new_rotation)
+	if rad2deg(new_rotation) > 90 and rad2deg(new_rotation) <= 270: # revert keys
+		var temp = up
+		up = down
+		down = temp
 	.rotate(new_rotation)
 
 
