@@ -66,7 +66,8 @@ func _server_disconnected():
 # called on connected player
 remote func register_player():
 	var id = str(get_tree().get_rpc_sender_id())
-	players.append(id)
+	if not id in players:
+		players.append(id)
 
 
 remote func player_ready(id):
@@ -81,7 +82,9 @@ remote func prepare_game():
 	initialize_players()
 	if not get_tree().is_network_server():
 		rpc_id(1, "player_ready", str(get_tree().get_network_unique_id()))
-	if len(players) > 0:
+	else:
+		players_ready.append("1")
+	if len(players) > 1:
 		get_tree().set_pause(true)
 
 
@@ -97,8 +100,6 @@ func prepare_world():
 
 
 func initialize_players():
-	var my_peer_id = str(get_tree().get_network_unique_id())
-	add_player(my_peer_id)
 	for player in players:
 		add_player(player)
 	world.set_players_positions()
@@ -123,6 +124,7 @@ func _on_TitleScreen_host():
 	var server = NetworkedMultiplayerENet.new()
 	server.create_server(SERVER_PORT, MAX_PLAYERS)
 	get_tree().network_peer = server
+	players.append(str(get_tree().get_network_unique_id()))
 	emit_signal("hosted")
 
 
@@ -130,6 +132,7 @@ func _on_ConnectScreen_connect(ip, port):
 	var peer = NetworkedMultiplayerENet.new()
 	peer.create_client(ip, port)
 	get_tree().network_peer = peer
+	players.append(str(get_tree().get_network_unique_id()))
 	emit_signal("connected")
 
 

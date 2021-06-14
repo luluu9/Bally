@@ -24,7 +24,7 @@ func prepare(players):
 
 
 func set_players_positions():
-	var all_players = Singleton.get_networking().players + [str(get_tree().get_network_unique_id())]
+	var all_players = Singleton.get_networking().players
 	prepare(len(all_players))
 	all_players.sort()
 	for node in get_children():
