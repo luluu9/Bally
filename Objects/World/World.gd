@@ -3,8 +3,6 @@ extends Node2D
 var positions = [Vector2(50, 300), Vector2(1870, 300)]
 var rotations = [0, 180]
 
-var prepared = false
-
 var goal_margin = 100 # should be set to approx. distance of goal collider from paddle
 
 # players amount
@@ -23,7 +21,6 @@ func prepare(players):
 			vectors.append(base_vector.rotated(deg2rad(rot)))
 	for vector in vectors:
 		positions.append(center+vector)
-	prepared = true
 
 
 func set_players_positions():

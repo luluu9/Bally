@@ -13,8 +13,9 @@ puppet var remote_direction = Vector2()
 
 
 func rotate(new_rotation):
-	up = up.rotated(new_rotation)
-	down = down.rotated(new_rotation)
+	rotation = 0
+	up = Vector2(0, -1).rotated(new_rotation)
+	down = Vector2(0, 1).rotated(new_rotation)
 	.rotate(new_rotation)
 
 

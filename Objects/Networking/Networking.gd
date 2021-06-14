@@ -45,6 +45,10 @@ func _player_disconnected(id):
 		players.erase(id)
 	if id in players_info:
 		players_info.erase(id)
+	for node in world.get_children():
+		if node.name == id:
+			node.queue_free()
+	world.set_players_positions()
 
 
 func _server_disconnected():
