@@ -97,6 +97,7 @@ func initialize_players():
 	add_player(my_peer_id)
 	for player in players:
 		add_player(player)
+	world.set_players_positions()
 
 
 func add_player(peer_id):
