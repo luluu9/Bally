@@ -13,6 +13,7 @@ var players = []
 # - id: [['color': Color], ['name': Name]]
 var players_info = {}
 var players_ready = []
+var players_joining = []
 
 var player_scene = load("res://Objects/Player/Player.tscn")
 var ball_scene = load("res://Objects/Ball/Ball.tscn")
@@ -32,8 +33,14 @@ func _ready():
 
 func _player_connected(id):
 	rpc_id(id, "register_player")
+	if not str(id) in players:
+		players.append(str(id))
 	if get_tree().is_network_server():
 		rpc_id(id, "set_info", players_info)
+		if Singleton.get_game_screen().is_visible():
+			rpc_id(id, "load_existing_game", players)
+			rpc("load_joined_player", str(id))
+			players_joining.append(str(id))
 
 
 func _player_disconnected(id):
@@ -72,6 +79,9 @@ remote func register_player():
 
 remote func player_ready(id):
 	players_ready.append(id)
+	if id in players_joining:
+		players_joining.erase(id)
+		rpc_id(int(id), "start_game")
 	if len(players_ready) == len(players):
 		rpc("start_game")
 		start_game()
@@ -118,6 +128,22 @@ func add_player(peer_id):
 				"name":
 					player.nickname = info_value
 	world.add_child(player)
+
+
+remote func load_existing_game(existing_players):
+	get_tree().set_pause(true) 
+	players = existing_players
+	var my_id = str(get_tree().get_network_unique_id())
+	if not my_id in players:
+		players.append(my_id)
+	prepare_game()
+
+
+remotesync func load_joined_player(id):
+	if str(get_tree().get_network_unique_id()) != id:
+		print("LOAD JOINED PLAYER")
+		add_player(id)
+		world.set_players_positions()
 
 
 func _on_TitleScreen_host():
