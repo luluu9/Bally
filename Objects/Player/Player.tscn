@@ -18,6 +18,14 @@ position = Vector2( -50, 0 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Goal"]
 shape = SubResource( 1 )
 
+[node name="ColorRect" type="ColorRect" parent="Goal"]
+margin_top = -1080.0
+margin_right = 20.0
+margin_bottom = 1080.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Tween" type="Tween" parent="."]
 
 [connection signal="body_entered" from="Goal" to="." method="_on_Goal_body_entered"]
