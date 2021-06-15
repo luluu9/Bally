@@ -23,8 +23,9 @@ func prepare(players):
 		positions.append(center+vector)
 
 
-func set_players_positions():
-	var all_players = Singleton.get_networking().players
+func set_players_positions(all_players=null):
+	if not all_players:
+		all_players = Singleton.get_networking().players
 	prepare(len(all_players))
 	all_players.sort()
 	for node in get_children():
