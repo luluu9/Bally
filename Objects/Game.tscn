@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://Fonts/Score.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Objects/UILayer/GameScreen.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Objects/Networking/Networking.gd" type="Script" id=2]
 [ext_resource path="res://Objects/UILayer/UILayer.gd" type="Script" id=3]
 [ext_resource path="res://Objects/UILayer/TitleScreen.tscn" type="PackedScene" id=4]
@@ -32,27 +32,8 @@ visible = false
 [node name="LobbyScreen" parent="UILayer/Screens" instance=ExtResource( 6 )]
 visible = false
 
-[node name="GameScreen" type="Control" parent="UILayer/Screens"]
+[node name="GameScreen" parent="UILayer/Screens" instance=ExtResource( 1 )]
 visible = false
-margin_right = 40.0
-margin_bottom = 40.0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UILayer/Screens/GameScreen"]
-anchor_right = 1.0
-margin_right = 1880.0
-margin_bottom = 60.0
-alignment = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Score" type="Label" parent="UILayer/Screens/GameScreen/HBoxContainer"]
-margin_left = 956.0
-margin_top = 23.0
-margin_right = 964.0
-margin_bottom = 37.0
-custom_fonts/font = ExtResource( 1 )
-text = "0"
 
 [node name="Networking" type="Node" parent="."]
 script = ExtResource( 2 )

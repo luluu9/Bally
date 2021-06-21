@@ -10,7 +10,6 @@ extents = Vector2( 30, 1080 )
 script = ExtResource( 2 )
 
 [node name="Paddle" parent="." instance=ExtResource( 1 )]
-collision/safe_margin = 0.001
 
 [node name="Goal" type="Area2D" parent="."]
 position = Vector2( -50, 0 )

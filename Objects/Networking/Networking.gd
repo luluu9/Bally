@@ -10,7 +10,7 @@ var MAX_PLAYERS = 8
 
 var players = []
 # players_info eg.:
-# - id: [['color': Color], ['name': Name]]
+# - id: {'color': Color, 'name': Name}
 var players_info = {}
 var players_ready = []
 var players_joining = []
@@ -38,7 +38,7 @@ func _player_connected(id):
 	if get_tree().is_network_server():
 		rpc_id(id, "set_info", players_info)
 		if Singleton.get_game_screen().is_visible():
-			rpc_id(id, "load_existing_game", players)
+			rpc_id(id, "load_existing_game", players, players_info)
 			rpc("load_joined_player", str(id))
 			players_joining.append(str(id))
 
@@ -87,9 +87,10 @@ remote func player_ready(id):
 		start_game()
 
 
-remote func prepare_game():
+remote func prepare_game(game_info):
 	prepare_world()
 	initialize_players()
+	Singleton.get_game_screen().initialize_players(game_info)
 	if not get_tree().is_network_server():
 		rpc_id(1, "player_ready", str(get_tree().get_network_unique_id()))
 	else:
@@ -130,13 +131,13 @@ func add_player(peer_id):
 	world.add_child(player)
 
 
-remote func load_existing_game(existing_players):
+remote func load_existing_game(existing_players, game_info):
 	get_tree().set_pause(true) 
 	players = existing_players
 	var my_id = str(get_tree().get_network_unique_id())
 	if not my_id in players:
 		players.append(my_id)
-	prepare_game()
+	prepare_game(game_info)
 
 
 remotesync func load_joined_player(id):
@@ -163,8 +164,9 @@ func _on_ConnectScreen_connect(ip, port):
 
 
 func _on_LobbyScreen_start_game():
-	rpc("prepare_game")
-	prepare_game()
+	rpc("prepare_game", players_info)
+	prepare_game(players_info)
+	
 
 
 func _on_LobbyScreen_set_info(info):

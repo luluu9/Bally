@@ -8,6 +8,7 @@ extents = Vector2( 25, 100 )
 
 [node name="Paddle" type="KinematicBody2D"]
 collision_mask = 0
+collision/safe_margin = 0.001
 script = ExtResource( 2 )
 
 [node name="Paddle" type="Sprite" parent="."]

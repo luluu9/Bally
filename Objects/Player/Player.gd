@@ -51,10 +51,13 @@ func _on_Goal_body_entered(body):
 
 func set_points(new_points):
 	points = new_points
-	if get_tree().get_network_unique_id() == int(self.name):
+	var my_id = str(get_tree().get_network_unique_id())
+	if my_id == self.name:
 		var score_node = Singleton.get_score_node()
 		if score_node:
 			score_node.text = str(new_points)
+	var game_node = Singleton.get_game_screen()
+	game_node.update_score(self.name, str(new_points))
 
 
 func remote_position_set(new_position):

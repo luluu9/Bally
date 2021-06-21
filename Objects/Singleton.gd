@@ -21,5 +21,6 @@ func get_score_node():
 func get_lobby_screen():
 	return lobby_screen
 
+
 func get_game_screen():
 	return game_screen
