@@ -10,7 +10,8 @@ onready var players_font = preload("res://Fonts/PlayersList.tres")
 #   - "color"
 #   - "points"
 var players = {}
-
+var default_name = "Guest"
+var default_color = Color(255, 255, 255)
 
 #func _ready():
 #	var players_info = {'1':{'color':Color(0.780398,0.132456,0.132456,1), 'name':'h'}}
@@ -24,8 +25,8 @@ func update_score(peer_id, score):
 
 func initialize_players(players_list, players_info):
 	for peer_id in players_list:
-		var nickname = "Guest"
-		var color = Color(255, 255, 255)
+		var nickname = default_name
+		var color = default_color
 		if peer_id in players_info:
 			for info_name in players_info[peer_id]:
 				var info_value = players_info[peer_id][info_name]
@@ -44,6 +45,7 @@ func add_player(peer_id, nickname, color):
 	nickname_label.name = peer_id
 	nickname_label.size_flags_horizontal = SIZE_EXPAND_FILL
 	nickname_label.add_font_override("font", players_font)
+	nickname_label.clip_text = true
 	nickname_label.text = nickname
 	player["nickname"] = nickname_label
 	
@@ -65,4 +67,8 @@ func add_player(peer_id, nickname, color):
 	players_node.add_child(points_label)
 	
 	players[peer_id] = player
+
+
+func add_guest(peer_id):
+	add_player(peer_id, default_name, default_color)
 

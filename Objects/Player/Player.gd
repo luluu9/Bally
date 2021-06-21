@@ -45,7 +45,6 @@ func _on_Goal_body_entered(body):
 	if get_tree().is_network_server():
 		if body is Ball:
 			if body.goalscorer:
-				print(self, body.goalscorer)
 				if body.goalscorer == self: # own goal
 					self.rset("points", self.points-1)
 				else:

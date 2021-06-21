@@ -145,6 +145,7 @@ remotesync func load_joined_player(id):
 		print("LOAD JOINED PLAYER")
 		add_player(id)
 		world.set_players_positions()
+		Singleton.get_game_screen().add_guest(str(id))
 
 
 func _on_TitleScreen_host():
