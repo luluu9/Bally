@@ -72,3 +72,9 @@ func add_player(peer_id, nickname, color):
 func add_guest(peer_id):
 	add_player(peer_id, default_name, default_color)
 
+
+func remove_player(peer_id):
+	for node_name in players[peer_id]:
+		players[peer_id][node_name].queue_free()
+	players.erase(peer_id)
+

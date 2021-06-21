@@ -48,6 +48,7 @@ func _player_disconnected(id):
 	if id in players_ready: 
 		world.get_node(id).queue_free()
 	Singleton.get_lobby_screen().remove_player(id)
+	Singleton.get_game_screen().remove_player(id)
 	if id in players:
 		players.erase(id)
 	if id in players_info:
