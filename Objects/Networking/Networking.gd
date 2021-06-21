@@ -37,8 +37,10 @@ func _player_connected(id):
 		players.append(str(id))
 	if get_tree().is_network_server():
 		rpc_id(id, "set_info", players_info)
-		if Singleton.get_game_screen().is_visible():
-			rpc_id(id, "load_existing_game", players, players_info)
+		var game_screen = Singleton.get_game_screen()
+		if game_screen.is_visible():
+			var scores = game_screen.get_scores()
+			rpc_id(id, "load_existing_game", players, players_info, scores)
 			rpc("load_joined_player", str(id))
 			players_joining.append(str(id))
 
@@ -88,10 +90,12 @@ remote func player_ready(id):
 		start_game()
 
 
-remote func prepare_game(game_info):
+remote func prepare_game(game_info, scores=null):
 	prepare_world()
 	initialize_players()
 	Singleton.get_game_screen().initialize_players(players, game_info)
+	if scores:
+		Singleton.get_game_screen().update_scores(scores)
 	if not get_tree().is_network_server():
 		rpc_id(1, "player_ready", str(get_tree().get_network_unique_id()))
 	else:
@@ -132,13 +136,13 @@ func add_player(peer_id):
 	world.add_child(player)
 
 
-remote func load_existing_game(existing_players, game_info):
+remote func load_existing_game(existing_players, game_info, scores):
 	get_tree().set_pause(true) 
 	players = existing_players
 	var my_id = str(get_tree().get_network_unique_id())
 	if not my_id in players:
 		players.append(my_id)
-	prepare_game(game_info)
+	prepare_game(game_info, scores)
 
 
 remotesync func load_joined_player(id):

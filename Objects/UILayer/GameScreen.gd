@@ -78,3 +78,15 @@ func remove_player(peer_id):
 		players[peer_id][node_name].queue_free()
 	players.erase(peer_id)
 
+
+func get_scores():
+	var scores = {}
+	for player in players:
+		scores[player] = players[player]['points'].text
+	return scores
+
+
+func update_scores(scores):
+	for player in scores:
+		players[player]['points'].text = scores[player]
+
