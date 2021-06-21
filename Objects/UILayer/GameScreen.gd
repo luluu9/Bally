@@ -22,17 +22,18 @@ func update_score(peer_id, score):
 		players[peer_id]['points'].text = score
 
 
-func initialize_players(players_info):
-	for peer_id in players_info:
-		var nickname = ""
+func initialize_players(players_list, players_info):
+	for peer_id in players_list:
+		var nickname = "Guest"
 		var color = Color(255, 255, 255)
-		for info_name in players_info[peer_id]:
-			var info_value = players_info[peer_id][info_name]
-			match info_name:
-				"color":
-					color = info_value
-				"name":
-					nickname = info_value 
+		if peer_id in players_info:
+			for info_name in players_info[peer_id]:
+				var info_value = players_info[peer_id][info_name]
+				match info_name:
+					"color":
+						color = info_value
+					"name":
+						nickname = info_value 
 		add_player(peer_id, nickname, color)
 
 

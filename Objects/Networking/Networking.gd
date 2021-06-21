@@ -90,7 +90,7 @@ remote func player_ready(id):
 remote func prepare_game(game_info):
 	prepare_world()
 	initialize_players()
-	Singleton.get_game_screen().initialize_players(game_info)
+	Singleton.get_game_screen().initialize_players(players, game_info)
 	if not get_tree().is_network_server():
 		rpc_id(1, "player_ready", str(get_tree().get_network_unique_id()))
 	else:
