@@ -9,6 +9,9 @@ Currently done:
 TODO:
 - powerups
 
+Screens:
+![Game preview](/Art/game_preview.png)
+
 If you have some ideas, let me know!
 
 Created and compatible with Godot 3.3.1.
